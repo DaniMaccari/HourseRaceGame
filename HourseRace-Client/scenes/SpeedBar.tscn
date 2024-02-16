@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/powerBarController.gd" type="Script" id=1]
+[ext_resource path="res://assets/aimBar.png" type="Texture" id=2]
+[ext_resource path="res://assets/powerBar.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 6.66667
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="PowerBar" type="Sprite" parent="."]
+scale = Vector2( 2.1, 2.1 )
+texture = ExtResource( 3 )
+
+[node name="Pointer" type="KinematicBody2D" parent="."]
+scale = Vector2( 2.1, 2.1 )
+
+[node name="Sprite" type="Sprite" parent="Pointer"]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pointer"]
+shape = SubResource( 1 )
+
+[node name="endPosition" type="Position2D" parent="."]
+position = Vector2( 0, 198 )
+
+[node name="redPosition" type="Position2D" parent="."]
+position = Vector2( 0, 147 )
+
+[node name="orangePosition" type="Position2D" parent="."]
+position = Vector2( 0, 84 )
+
+[node name="yellowPosition" type="Position2D" parent="."]
+position = Vector2( 0, 44 )
+
+[node name="greenPosition" type="Position2D" parent="."]
+position = Vector2( 0, 19 )
+
+[node name="bluePosition" type="Position2D" parent="."]
+position = Vector2( 0, 7 )
