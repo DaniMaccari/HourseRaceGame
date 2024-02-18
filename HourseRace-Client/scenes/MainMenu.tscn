@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/fonts/superstar_memesbruh03_16px.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
 
 [sub_resource type="DynamicFont" id=1]
 size = 38
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
 margin_right = 1.0
+script = ExtResource( 2 )
 
 [node name="play" type="Button" parent="."]
 anchor_left = 0.5
@@ -23,3 +25,5 @@ margin_right = 82.0
 margin_bottom = -49.0
 custom_fonts/font = SubResource( 1 )
 text = "PLAY"
+
+[connection signal="pressed" from="play" to="." method="_on_play_pressed"]
