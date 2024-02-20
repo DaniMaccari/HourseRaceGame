@@ -2,6 +2,7 @@ extends Node
 
 var network = NetworkedMultiplayerENet.new()
 var room = preload("res://scenes/room.tscn")
+var client = preload("res://scenes/client.tscn")
 var rng = RandomNumberGenerator.new()
 
 var max_players = 64
@@ -20,9 +21,16 @@ func StartServer():
 
 func PlayerConnected(player_id):
 	print(str(player_id) + " is connected")
-
+	var new_client = client.instance()
+	new_client.name = str(player_id)
+	$clients.add_child(new_client)
+	
 func PlayerDisconnected(player_id):
 	print(str(player_id) + " disconnected")
+	#$clients.get_node(str(player_id)).terminate
+	var disconnected_player = $clients.get_node_or_null(str(player_id))
+	if disconnected_player != null:
+		disconnected_player.terminate()
 
 remote func JoinRoom_1():
 	var client_id = get_tree().get_rpc_sender_id()
@@ -48,3 +56,22 @@ remote func JoinRoom_1():
 			$rooms.get_node(room_id).queue_free()
 	
 	pass
+	
+remote func AddClient(room_id):
+	var client_id = get_tree().get_rpc_sender_id()
+	var r = $rooms.get_node_or_null(room_id)
+	if r != null:
+		r.AddClient(client_id)
+	else:
+		print("room doesnt exist")
+
+remote func UpdateClients(room_id):
+	var client_id = get_tree().get_rpc_sender_id()
+	var r = $rooms.get_node_or_null(room_id)
+	if r != null:
+		if client_id in get_tree().get_network_connected_peers():
+			rpc_id(client_id, "UpdatedClients", r.client_list)
+
+
+
+

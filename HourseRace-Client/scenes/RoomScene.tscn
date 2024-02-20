@@ -49,4 +49,9 @@ margin_bottom = -24.0
 custom_fonts/font = SubResource( 2 )
 text = "exit"
 
+[node name="TimerUpdatePlayers" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
 [connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
+[connection signal="timeout" from="TimerUpdatePlayers" to="." method="_on_TimerUpdatePlayers_timeout"]

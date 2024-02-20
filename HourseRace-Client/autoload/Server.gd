@@ -8,6 +8,8 @@ var ip_address = "127.0.0.1" #local IP
 var port = 1909
 onready var scene_handler = get_node("/root/scene_handler")
 
+var r_id = 0
+
 func _ready():
 	StartClient()
 	
@@ -36,8 +38,24 @@ remote func EnterRoom(room_id):
 	if get_tree().get_rpc_sender_id() != 1:
 		return
 	
+	r_id = room_id
 	var res = scene_handler.get_node_or_null("Lobby")
 	if res != null:
 		res.EnterRoom()
 	else:
 		print("EnterRoom - scene doesnt exist")
+
+func AddClient():
+	rpc_id(1, "AddClient", r_id)
+
+func UpdateClients():
+	rpc_id(1, "UpdateClients", r_id)
+
+remote func UpdatedClients(c_list):
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	var res = scene_handler.get_node_or_null("RoomScene")
+	if res != null:
+		res.UpdateClients(c_list)
+
+
