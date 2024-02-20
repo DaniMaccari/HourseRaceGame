@@ -8,7 +8,7 @@ var ip_address = "127.0.0.1" #local IP
 var port = 1909
 onready var scene_handler = get_node("/root/scene_handler")
 
-var r_id = 0
+var r_id = "room_default"
 
 func _ready():
 	StartClient()
@@ -58,4 +58,5 @@ remote func UpdatedClients(c_list):
 	if res != null:
 		res.UpdateClients(c_list)
 
-
+func ExitRoom():
+	rpc_id(1, "ExitRoom", r_id)

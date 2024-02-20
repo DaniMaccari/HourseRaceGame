@@ -72,6 +72,9 @@ remote func UpdateClients(room_id):
 		if client_id in get_tree().get_network_connected_peers():
 			rpc_id(client_id, "UpdatedClients", r.client_list)
 
-
-
+remote func ExitRoom(room_id):
+	var client_id = get_tree().get_rpc_sender_id()
+	var r = $rooms.get_node_or_null(room_id)
+	if r != null:
+		r.ExitClient(client_id)
 
