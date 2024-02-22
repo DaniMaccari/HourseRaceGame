@@ -39,9 +39,12 @@ remote func JoinRoom_1():
 	var r = $rooms.get_node_or_null("room_1")
 	
 	if r !=null: #join
-		#make join code
-		print("JoinRoom_1 - room joined")
-		pass
+		if (r.game_started == false) and (r.player_count < r.MAX_PLAYERS):
+			if client_id in get_tree().get_network_connected_peers():
+				rpc_id(client_id, "EnterRoom", "room_1")
+				print("JoinRoom_1 - room joined")
+		else:
+			print("game full or started")
 		
 	else: #create new room
 		var new_room = room.instance()

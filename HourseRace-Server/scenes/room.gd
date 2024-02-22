@@ -12,7 +12,7 @@ var player_count = 0
 var game_started = false
 
 func _ready():
-	get_parent().add_room(self.name)
+	get_parent().AddRoom(self.name)
 	
 func AddClient(c_id):
 	if client_list.size() > MAX_PLAYERS:
@@ -39,7 +39,7 @@ func UpdateCount():
 	player_count = 0
 	for c in client_list.keys():
 		player_count += 1
-	get_parent().update_room(self.name, {"player_count": player_count, "game_started": game_started})
+	get_parent().UpdateRoom(self.name, {"player_count": player_count, "game_started": game_started})
 
 
 

@@ -21,6 +21,7 @@ func _on_TimerPlayerCount_timeout():
 	Server.UpdateRooms()
 
 func UpdatedRooms(rooms_list):
+	numPlayers1.text = 0
 	for room in rooms_list.keys():
 		
 		if rooms_list[room]["game_started"] == true:
