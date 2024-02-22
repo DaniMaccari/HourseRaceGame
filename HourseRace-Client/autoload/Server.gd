@@ -60,3 +60,15 @@ remote func UpdatedClients(c_list):
 
 func ExitRoom():
 	rpc_id(1, "ExitRoom", r_id)
+
+func UpdateRooms():
+	rpc_id(1, "UpdateRooms")
+
+remote func UpdatedRooms(rooms_list):
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	var res = scene_handler.get_node_or_null("Lobby")
+	if res != null:
+		res.UpdatedRooms(rooms_list)
+
+

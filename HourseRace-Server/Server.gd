@@ -78,3 +78,21 @@ remote func ExitRoom(room_id):
 	if r != null:
 		r.ExitClient(client_id)
 
+remote func UpdateRooms():
+	var client_id = get_tree().get_rpc_sender_id()
+	rpc_id(client_id, "UpdatedRooms", $rooms.rooms_list)
+	
+#	for r in $rooms.get_children():
+#
+#		match value:
+#			"room_1":
+#		pass
+
+
+
+
+
+
+
+
+

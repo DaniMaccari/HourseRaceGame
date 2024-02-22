@@ -8,7 +8,12 @@ var client_info = {
 }
 
 const MAX_PLAYERS = 8
+var player_count = 0
+var game_started = false
 
+func _ready():
+	get_parent().add_room(self.name)
+	
 func AddClient(c_id):
 	if client_list.size() > MAX_PLAYERS:
 		print("room.AddClient - room full")
@@ -21,7 +26,23 @@ func AddClient(c_id):
 	new_client["room_id"] = self.name
 	c.client_info = new_client
 	client_list[str(c_id)] = new_client
-	pass
+	UpdateCount()
 
 func ExitClient(c_id):
 	client_list.erase(str(c_id))
+	UpdateCount()
+	if player_count == 0:
+		get_parent().DeleteRoom(self.name)
+		self.queue_free() #change later
+
+func UpdateCount():
+	player_count = 0
+	for c in client_list.keys():
+		player_count += 1
+	get_parent().update_room(self.name, {"player_count": player_count, "game_started": game_started})
+
+
+
+
+
+
