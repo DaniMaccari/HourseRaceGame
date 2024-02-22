@@ -27,3 +27,5 @@ func UpdateClients(c_list):
 func _on_TimerUpdatePlayers_timeout():
 	Server.UpdateClients()
 
+func _on_playButton_pressed():
+	pass # Replace with function body.

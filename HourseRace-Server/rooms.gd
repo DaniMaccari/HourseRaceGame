@@ -17,3 +17,4 @@ func DeleteRoom(room_id):
 
 func UpdateRoom(room_id, r_info):
 	rooms_list[room_id] = r_info
+

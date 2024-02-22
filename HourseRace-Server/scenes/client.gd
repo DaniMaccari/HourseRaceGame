@@ -8,7 +8,7 @@ var client_info = {
 }
 
 func terminate():
-	room.get_node_or_null(str(client_info["room_id"]))
-	if room != null:
-		room.ExitClient(self.name)
+	var res = room.get_node_or_null(str(client_info["room_id"]))
+	if res != null:
+		res.ExitClient(self.name)
 	
