@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/HoursePlayer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/SpeedBar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/background.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 20, 256 )
+
+[node name="GameScene" type="Node2D"]
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 448.25, 227 )
+scale = Vector2( 4.22991, 3.12277 )
+texture = ExtResource( 3 )
+
+[node name="HoursePlayer" parent="." instance=ExtResource( 1 )]
+position = Vector2( 140, 80 )
+
+[node name="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 34, 255 )
+
+[node name="FinishLine" type="Area2D" parent="."]
+position = Vector2( 883, 249 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine"]
+shape = SubResource( 1 )

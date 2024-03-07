@@ -71,4 +71,22 @@ remote func UpdatedRooms(rooms_list):
 	if res != null:
 		res.UpdatedRooms(rooms_list)
 
+func SendStartSignal():
+	rpc_id(1, "SendStartSignal", r_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

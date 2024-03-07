@@ -28,4 +28,6 @@ func _on_TimerUpdatePlayers_timeout():
 	Server.UpdateClients()
 
 func _on_playButton_pressed():
+	Server.SendStartSignal()
+	#emit_signal("scene_change", "game_scene")
 	pass # Replace with function body.

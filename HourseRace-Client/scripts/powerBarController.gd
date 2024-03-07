@@ -115,7 +115,7 @@ func RestartSpeed():
 	_isOut = true
 	
 	timer = Timer.new()
-	timer.wait_time = 1.0
+	timer.wait_time = 2.0
 	timer.connect("timeout", self, "ResumePointer")
 	add_child(timer)
 	

@@ -1,5 +1,8 @@
 extends Viewport
 
+var stage_scene = preload("res://stages/stage1/GameScene1_Server.tscn")
+var hourse_scene = preload("res://characters/HoursePlayer_Server.tscn")
+
 var client_list = {}
 var client_info = {
 	"client_id": null,
@@ -40,6 +43,33 @@ func UpdateCount():
 	for c in client_list.keys():
 		player_count += 1
 	get_parent().UpdateRoom(self.name, {"player_count": player_count, "game_started": game_started})
+
+func LoadStage():
+	var stage = stage_scene.instance()
+	add_child(stage)
+	
+	var pos_shift = 0
+	var pos_shift_two = 0
+	
+	#spawn clients
+	for client in client_list.keys():
+		
+		var pos = Vector2(140, 80 + pos_shift)
+		pos_shift += 10
+		var new_client = hourse_scene.instance()
+		new_client.name = client
+		new_client.transform.origin = pos
+		$clients.add_child(new_client)
+	pass
+
+
+
+
+
+
+
+
+
 
 
 

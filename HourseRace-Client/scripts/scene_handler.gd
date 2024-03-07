@@ -20,7 +20,7 @@ func handle_scene_change(scene_name):
 		"menu_scene": #start scene, menu
 			loader = ResourceLoader.load_interactive("res://scenes/MainMenu.tscn")
 		"game_scene": #ingame match started
-			loader = ResourceLoader.load_interactive("res://scenes/GameScene.tscn")
+			loader = ResourceLoader.load_interactive("res://scenes/GameScene1.tscn")
 #		_:
 #			loader = null
 	

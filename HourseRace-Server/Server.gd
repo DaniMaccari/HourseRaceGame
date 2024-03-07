@@ -91,7 +91,14 @@ remote func UpdateRooms():
 #			"room_1":
 #		pass
 
-
+remote func SendStartSignal(room_id):
+	var client_id = get_tree().get_rpc_sender_id()
+	var r = $rooms.get_node_or_null(room_id)
+	if r != null:
+		var keys = r.client_list.keys()
+		if client_id in keys:
+			r.LoadStage()
+	
 
 
 
