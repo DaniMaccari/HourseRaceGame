@@ -96,8 +96,12 @@ remote func SendStartSignal(room_id):
 	var r = $rooms.get_node_or_null(room_id)
 	if r != null:
 		var keys = r.client_list.keys()
-		if client_id in keys:
+		if true:#client_id in keys:
 			r.LoadStage()
+			
+			for client in keys:
+				#print(client)
+				rpc_id(int(client), "LoadStage", r.client_list)
 	
 
 

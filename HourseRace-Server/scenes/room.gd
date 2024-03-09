@@ -5,9 +5,9 @@ var hourse_scene = preload("res://characters/HoursePlayer_Server.tscn")
 
 var client_list = {}
 var client_info = {
-	"client_id": null,
-	"nick_name": null,
-	"room_id": null
+	"client_id": null, #int
+	"nick_name": null, #string
+	"room_id": null #string
 }
 
 const MAX_PLAYERS = 8
@@ -45,11 +45,17 @@ func UpdateCount():
 	get_parent().UpdateRoom(self.name, {"player_count": player_count, "game_started": game_started})
 
 func LoadStage():
+	#already exists dont duplicate
+	if get_node_or_null("stage1") != null:
+		return
+
+	game_started = true
+	get_parent().UpdateRoom(self.name, {"player_count": player_count, "game_started": game_started})
 	var stage = stage_scene.instance()
+	stage.name = "stage1"
 	add_child(stage)
 	
 	var pos_shift = 0
-	var pos_shift_two = 0
 	
 	#spawn clients
 	for client in client_list.keys():
@@ -60,7 +66,8 @@ func LoadStage():
 		new_client.name = client
 		new_client.transform.origin = pos
 		$clients.add_child(new_client)
-	pass
+	
+	
 
 
 

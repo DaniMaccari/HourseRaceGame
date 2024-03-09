@@ -10,6 +10,8 @@ onready var scene_handler = get_node("/root/scene_handler")
 
 var r_id = "room_default"
 
+var temp_list
+
 func _ready():
 	StartClient()
 	
@@ -73,6 +75,16 @@ remote func UpdatedRooms(rooms_list):
 
 func SendStartSignal():
 	rpc_id(1, "SendStartSignal", r_id)
+	
+remote func LoadStage(client_list):
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	
+	var res = scene_handler.get_node_or_null("RoomScene")
+	if res != null:
+		temp_list = client_list
+		res.LoadStage()
+	
 
 
 

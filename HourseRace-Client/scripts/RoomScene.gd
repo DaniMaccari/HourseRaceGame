@@ -31,3 +31,6 @@ func _on_playButton_pressed():
 	Server.SendStartSignal()
 	#emit_signal("scene_change", "game_scene")
 	pass # Replace with function body.
+
+func LoadStage():
+	emit_signal("scene_change", "game_scene")
