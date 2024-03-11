@@ -7,7 +7,8 @@ var client_list = {}
 var client_info = {
 	"client_id": null, #int
 	"nick_name": null, #string
-	"room_id": null #string
+	"room_id": null, #string
+	"ready": false #bool
 }
 
 const MAX_PLAYERS = 8
@@ -55,19 +56,42 @@ func LoadStage():
 	stage.name = "stage1"
 	add_child(stage)
 	
-	var pos_shift = 0
+	var pos_shift = 80
 	
 	#spawn clients
 	for client in client_list.keys():
 		
-		var pos = Vector2(140, 80 + pos_shift)
-		pos_shift += 10
+		var pos = Vector2(140, pos_shift)
 		var new_client = hourse_scene.instance()
 		new_client.name = client
 		new_client.transform.origin = pos
 		$clients.add_child(new_client)
+		
+		print(pos)
+		
+		pos_shift += 20
 	
+	$timerCheckReady.start()
+
+func MakeReady(client_id):
+	client_list[client_id]["ready"] = true
 	
+
+func _on_timerCheckReady_timeout():
+	
+	var still_waiting = false
+	for c in client_list.keys():
+		if client_list[int(c)]["ready"] == false:
+			still_waiting = true
+			break
+		else:
+			pass
+	
+	if !still_waiting:
+		get_parent().get_parent().AllReady(client_list.keys())
+		$timerCheckReady.queue_free()
+		
+
 
 
 

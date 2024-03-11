@@ -102,11 +102,18 @@ remote func SendStartSignal(room_id):
 			for client in keys:
 				#print(client)
 				rpc_id(int(client), "LoadStage", r.client_list)
+
+
+remote func SendReadySignal(room_id):
+	var client_id = get_tree().get_rpc_sender_id()
+	var r = $rooms.get_node_or_null(room_id)
+	if r != null:
+		r.MakeReady(client_id)
+
+func AllReady(client_keys):
+	for c in client_keys:
+		rpc_id(int(c), "all_ready")
 	
-
-
-
-
 
 
 

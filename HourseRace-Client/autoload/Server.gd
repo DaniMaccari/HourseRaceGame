@@ -75,7 +75,10 @@ remote func UpdatedRooms(rooms_list):
 
 func SendStartSignal():
 	rpc_id(1, "SendStartSignal", r_id)
-	
+
+func SendReadySignal():
+	rpc_id(1, "SendReadySignal", r_id)
+
 remote func LoadStage(client_list):
 	if get_tree().get_rpc_sender_id() != 1:
 		return
@@ -85,7 +88,13 @@ remote func LoadStage(client_list):
 		temp_list = client_list
 		res.LoadStage()
 	
-
+remote func AllReady():
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	
+	var res = scene_handler.get_node_or_null("GameScene1")
+	if res != null:
+		res.StartMatch()
 
 
 

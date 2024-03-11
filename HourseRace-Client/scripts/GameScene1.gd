@@ -11,12 +11,12 @@ func _ready():
 	print(client_list)
 
 func SpawnClients():
-	var pos_shift = 0
+	var pos_shift = 80
 	
 	#spawn clients
 	for client in client_list.keys():
 		
-		var pos = Vector2(140, 80 + pos_shift)
+		var pos = Vector2(140, pos_shift)
 		pos_shift += 20
 		
 		#if its me
@@ -31,3 +31,9 @@ func SpawnClients():
 			new_client.name = client
 			new_client.transform.origin = pos
 			add_child(new_client)
+	
+	Server.SendReadySignal()
+
+func StartMatch():
+	$Node2D.StartPointer()
+	#do the rest of the stuff 3, 2, 1

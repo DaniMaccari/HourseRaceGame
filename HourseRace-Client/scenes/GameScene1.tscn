@@ -24,6 +24,7 @@ position = Vector2( 34, 255 )
 
 [node name="FinishLine" type="Area2D" parent="."]
 position = Vector2( 883, 249 )
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine"]
 shape = SubResource( 1 )

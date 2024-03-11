@@ -33,6 +33,8 @@ var points4 = 20
 
 
 func _ready():
+	set_physics_process(true)
+	
 	posEnd = posNodeEnd.position.y
 	posBad = posNodeBad.position.y
 	
@@ -126,7 +128,8 @@ func ResumePointer():
 	_isOut = false
 	timer.queue_free()
 	
-
+func StartPointer():
+	set_physics_process(true)
 
 
 

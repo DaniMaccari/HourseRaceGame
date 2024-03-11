@@ -4,7 +4,8 @@ onready var room = get_parent().get_parent().get_node("rooms")
 var client_info = {
 	"client_id": null,
 	"nick_name": null,
-	"room_id": null
+	"room_id": null,
+	"ready": false
 }
 
 func terminate():
