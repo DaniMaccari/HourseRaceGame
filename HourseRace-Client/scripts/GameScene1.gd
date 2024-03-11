@@ -17,14 +17,16 @@ func SpawnClients():
 	for client in client_list.keys():
 		
 		var pos = Vector2(140, 80 + pos_shift)
-		pos_shift += 10
+		pos_shift += 20
 		
 		#if its me
-		if client == get_tree().get_network_unique_id():
+		if client == str(get_tree().get_network_unique_id()):
+			print("my position")
 			$HoursePlayer.transform.origin = pos
 		
 		#other player
 		else:
+			print("other player position")
 			var new_client = hourse_scene.instance()
 			new_client.name = client
 			new_client.transform.origin = pos
