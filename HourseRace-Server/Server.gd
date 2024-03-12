@@ -114,6 +114,18 @@ func AllReady(client_keys):
 	for c in client_keys:
 		rpc_id(int(c), "all_ready")
 	
+remote func GetServerTime(client_time):
+	var client_id = get_tree().get_rpc_sender_id()
+	rpc_id(client_id, "ReturnServerTime", OS.get_system_time_msecs(), client_time)
+	
+
+
+
+
+
+
+
+
 
 
 
