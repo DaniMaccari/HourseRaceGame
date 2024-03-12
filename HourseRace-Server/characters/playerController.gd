@@ -32,7 +32,7 @@ func _process(delta):
 
 func HandleTick():
 	
-	while inputQueue > 0:
+	while inputQueue.size() > 0:
 		var last_input = inputQueue.pop_front()
 		ServerTick = last_input["T"]
 		ProcessInput(last_input)

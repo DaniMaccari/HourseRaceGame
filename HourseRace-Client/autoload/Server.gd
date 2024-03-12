@@ -126,7 +126,14 @@ func SendClientInput(c_input):
 	if network.get_connection_status() == 2:
 		rpc_unreliable_id(1, "ClientInputUpdate", c_input, r_id)
 
-
+remote func UpdateWorldState(world_state):
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	
+	var res = scene_handler.get_node_or_null("GameScene1")
+	if res != null:
+		res.UpdateWorldState(world_state)
+	
 
 
 

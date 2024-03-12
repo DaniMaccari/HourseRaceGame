@@ -15,9 +15,41 @@ const MAX_PLAYERS = 8
 var player_count = 0
 var game_started = false
 
+var currentTick = 0
+const SERVER_TICK_RATE = 20
+var minTimeBetweenTicks = 1 / SERVER_TICK_RATE
+var world_state = {}
+var worldstate_buffer = {}
+var timer = 0
+
 func _ready():
 	get_parent().AddRoom(self.name)
+	set_process(false)
+
+func SendPlayerState(id, state):
+	worldstate_buffer[id] = state
+
+func _process(delta):
+	timer += delta
 	
+	while timer >= minTimeBetweenTicks:
+		timer -= minTimeBetweenTicks
+		HandleTick()
+
+func HandleTick():
+	
+	if client_list.size() > 0:
+		world_state["T"] = OS.get_system_time_msecs()
+		
+		for c in $cliets.get_children():
+			if worldstate_buffer[c.name] != null:
+				world_state[c.name] = worldstate_buffer[c.name]
+		
+		for c in $clients.get_children():
+			get_parent().get_parent().SendWorldState(world_state, int(c.name), self.name)
+
+
+
 func AddClient(c_id):
 	if client_list.size() > MAX_PLAYERS:
 		print("room.AddClient - room full")
@@ -90,7 +122,7 @@ func _on_timerCheckReady_timeout():
 	if !still_waiting:
 		get_parent().get_parent().AllReady(client_list.keys())
 		$timerCheckReady.queue_free()
-		
+		set_process(true)
 
 
 

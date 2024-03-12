@@ -124,7 +124,11 @@ remote func ClientInputUpdate(client_input, room_id):
 	if r != null:
 		r.get_node("clients/" + str(client_id)).OnClientInput(client_input)
 
-
+func SendWorldState(world_state, c_id, r_id):
+	if c_id in get_tree().get_network_connected_peers():
+		 rpc_unreliable_id(c_id, "UpdateWorldState", world_state)
+		
+	
 
 
 

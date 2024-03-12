@@ -37,3 +37,26 @@ func SpawnClients():
 func StartMatch():
 	$Node2D.StartPointer()
 	#do the rest of the stuff 3, 2, 1
+
+func UpdateWorldState(world_state):
+	for c in world_state.keys():
+		if c == "T":
+			continue
+		elif c == get_tree().get_network_unique_id():
+			continue
+		else:
+			get_node(c).transform.origin = world_state[c]["P"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
