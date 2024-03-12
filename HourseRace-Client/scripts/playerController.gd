@@ -37,10 +37,11 @@ func HandleTick():
 	var clientInput = {}
 	clientInput["T"] = currentTick
 	clientInput["B"] = buttonPoints
-	buttonPoints = 0
+	
+	Server.SendClientInput(clientInput)
 	ProcessInput(clientInput)
 	
-	pass
+	buttonPoints = 0
 
 func ProcessInput(input):
 	
@@ -48,10 +49,10 @@ func ProcessInput(input):
 #	#velocity.x = move_toward(1, 0, SPEED)
 	if actualPoints > 100:
 		move_and_slide(Vector2(SPEED *1.5, 0))
-		buttonPoints -= 2
+		actualPoints -= 2
 	elif actualPoints > 0:
 		move_and_slide(Vector2(SPEED, 0))
-		buttonPoints -= 1
+		actualPoints -= 1
 #	if ( buttonPoints > 0):
 #		move_and_slide(Vector2(SPEED, 0))
 #		buttonPoints -= 1

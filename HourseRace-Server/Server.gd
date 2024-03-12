@@ -118,7 +118,11 @@ remote func GetServerTime(client_time):
 	var client_id = get_tree().get_rpc_sender_id()
 	rpc_id(client_id, "ReturnServerTime", OS.get_system_time_msecs(), client_time)
 	
-
+remote func ClientInputUpdate(client_input, room_id):
+	var client_id = get_tree().get_rpc_sender_id()
+	var r = $rooms.get_node_or_null(room_id)
+	if r != null:
+		r.get_node("clients/" + str(client_id)).OnClientInput(client_input)
 
 
 

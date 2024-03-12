@@ -122,7 +122,9 @@ remote func AllReady():
 	if res != null:
 		res.StartMatch()
 
-
+func SendClientInput(c_input):
+	if network.get_connection_status() == 2:
+		rpc_unreliable_id(1, "ClientInputUpdate", c_input, r_id)
 
 
 
