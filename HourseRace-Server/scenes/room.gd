@@ -27,7 +27,7 @@ func _ready():
 	set_process(false)
 
 func SendPlayerState(id, state):
-	worldstate_buffer[id] = state
+	worldstate_buffer[str(id)] = state
 
 func _process(delta):
 	timer += delta
@@ -41,9 +41,11 @@ func HandleTick():
 	if client_list.size() > 0:
 		world_state["T"] = OS.get_system_time_msecs()
 		
+		
 		for c in $clients.get_children():
-			if worldstate_buffer[c.name] != null:
-				world_state[c.name] = worldstate_buffer[c.name]
+			print(c)
+			if worldstate_buffer[str(c.name)] != null:
+				world_state[str(c.name)] = worldstate_buffer[str(c.name)]
 		
 		for c in $clients.get_children():
 			get_parent().get_parent().SendWorldState(world_state, int(c.name), self.name)
@@ -109,8 +111,11 @@ func MakeReady(client_id):
 	client_list[str(client_id)]["ready"] = true
 	
 
+var timerStop = false
 func _on_timerCheckReady_timeout():
 	
+	if timerStop:
+		return
 	var still_waiting = false
 	for c in client_list.keys():
 		if client_list[str(c)]["ready"] == false:
@@ -120,9 +125,11 @@ func _on_timerCheckReady_timeout():
 			pass
 	
 	if !still_waiting:
-		get_parent().get_parent().AllReady(client_list.keys())
-		$timerCheckReady.queue_free()
 		set_process(true)
+		get_parent().get_parent().AllReady(client_list.keys())
+		timerStop  = true
+		#$timerCheckReady.queue_free()
+		
 
 
 

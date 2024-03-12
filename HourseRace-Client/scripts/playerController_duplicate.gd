@@ -1,25 +1,23 @@
 extends KinematicBody2D
 
 
+# Declare member variables here. Examples:
+# var a = 2
+# var b = "text"
 const SPEED = 45
+var actualButtonPoints = 0
 var buttonPoints = 0
 var actualPoints = 0
 
 var timer = 0
 var minTimeBetweenTicks = 1/60.0
 var currentTick = 0
-
-
+const BUFFER_SIZE = 1024
+var inputBuffer = []
 #var stateBuffer = []
 var default_state = {"T" :0, "B" :0}
 
-var inputQueue = []
-const BUFFER_SIZE = 1024
-var inputBuffer = []
-var stateBuffer = {}
-
-var ServerTick = 0
-
+# Called when the node enters the scene tree for the first time.
 func _ready():
 	inputBuffer.resize(BUFFER_SIZE)
 	#stateBuffer.resize(BUFFER_SIZE)
@@ -36,19 +34,14 @@ func _process(delta):
 
 func HandleTick():
 	
-	#var bufferIndex = -1
-	var statepayload
-	while inputQueue.size() > 0:
-		var last_input = inputQueue.pop_front()
-		ServerTick = last_input["T"]
-		statepayload = ProcessInput(last_input)
+	var clientInput = {}
+	clientInput["T"] = currentTick
+	clientInput["B"] = buttonPoints
 	
-	#if bufferIndex != -1:
-	get_parent().get_parent().SendPlayerState(self.name, statepayload)
-
+	Server.SendClientInput(clientInput)
+	ProcessInput(clientInput)
 	
-	#ProcessInput(clientInput)
-	#buttonPoints = 0
+	buttonPoints = 0
 
 func ProcessInput(input):
 	
@@ -60,22 +53,14 @@ func ProcessInput(input):
 	elif actualPoints > 0:
 		move_and_slide(Vector2(SPEED, 0))
 		actualPoints -= 1
-		
-	return{ "T": input["T"], "P": transform.origin}
+#	if ( buttonPoints > 0):
+#		move_and_slide(Vector2(SPEED, 0))
+#		buttonPoints -= 1
+#	pass
 
+#func _unhandled_key_input(event):
+#	if Input.is_action_just_pressed("mainButton"):
+#		buttonPoints += 10
 	
 func scorePoints(numPoints):
 	buttonPoints = numPoints
-	
-
-func OnClientInput(input):
-	inputQueue.append(input)
-
-
-
-
-
-
-
-
-

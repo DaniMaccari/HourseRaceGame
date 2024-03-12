@@ -8,6 +8,7 @@ var client_list
 func _ready():
 	client_list = Server.temp_list
 	SpawnClients()
+	print("GameScene, _ready")
 	print(client_list)
 
 func SpawnClients():
@@ -40,9 +41,8 @@ func StartMatch():
 
 func UpdateWorldState(world_state):
 	for c in world_state.keys():
-		if c == "T":
-			continue
-		elif c == get_tree().get_network_unique_id():
+		print("GameScene1, UpdateWorldState" ) #+ str(c)
+		if world_state[c]["player_id"] == get_tree().get_network_unique_id():
 			continue
 		else:
 			get_node(c).transform.origin = world_state[c]["P"]
