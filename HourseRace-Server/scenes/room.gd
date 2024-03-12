@@ -41,7 +41,7 @@ func HandleTick():
 	if client_list.size() > 0:
 		world_state["T"] = OS.get_system_time_msecs()
 		
-		for c in $cliets.get_children():
+		for c in $clients.get_children():
 			if worldstate_buffer[c.name] != null:
 				world_state[c.name] = worldstate_buffer[c.name]
 		
@@ -106,14 +106,14 @@ func LoadStage():
 	$timerCheckReady.start()
 
 func MakeReady(client_id):
-	client_list[client_id]["ready"] = true
+	client_list[str(client_id)]["ready"] = true
 	
 
 func _on_timerCheckReady_timeout():
 	
 	var still_waiting = false
 	for c in client_list.keys():
-		if client_list[int(c)]["ready"] == false:
+		if client_list[str(c)]["ready"] == false:
 			still_waiting = true
 			break
 		else:

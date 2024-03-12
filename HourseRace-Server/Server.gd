@@ -112,7 +112,7 @@ remote func SendReadySignal(room_id):
 
 func AllReady(client_keys):
 	for c in client_keys:
-		rpc_id(int(c), "all_ready")
+		rpc_id(int(c), "AllReady")
 	
 remote func GetServerTime(client_time):
 	var client_id = get_tree().get_rpc_sender_id()

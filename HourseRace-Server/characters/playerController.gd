@@ -8,12 +8,16 @@ var actualPoints = 0
 var timer = 0
 var minTimeBetweenTicks = 1/60.0
 var currentTick = 0
-const BUFFER_SIZE = 1024
-var inputBuffer = []
+
+
 #var stateBuffer = []
 var default_state = {"T" :0, "B" :0}
 
 var inputQueue = []
+const BUFFER_SIZE = 1024
+var inputBuffer = []
+var stateBuffer = {}
+
 var ServerTick = 0
 
 func _ready():
@@ -32,10 +36,18 @@ func _process(delta):
 
 func HandleTick():
 	
+	var bufferIndex = -1
 	while inputQueue.size() > 0:
 		var last_input = inputQueue.pop_front()
 		ServerTick = last_input["T"]
-		ProcessInput(last_input)
+		var statepayload = ProcessInput(last_input)
+		bufferIndex = last_input["T"] % BUFFER_SIZE
+		stateBuffer[bufferIndex] = statepayload
+	
+	
+	if bufferIndex != -1:
+		get_parent().get_parent().SendPlayerState(self.name, stateBuffer[bufferIndex])
+
 	
 	#ProcessInput(clientInput)
 	#buttonPoints = 0
@@ -60,7 +72,6 @@ func scorePoints(numPoints):
 
 func OnClientInput(input):
 	inputQueue.append(input)
-	pass
 
 
 
