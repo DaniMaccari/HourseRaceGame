@@ -111,7 +111,8 @@ func MakeReady(client_id):
 	client_list[str(client_id)]["ready"] = true
 	
 
-var timerStop = false
+#esto cambiar a false DEBUG
+var timerStop = true
 func _on_timerCheckReady_timeout():
 	
 	if timerStop:

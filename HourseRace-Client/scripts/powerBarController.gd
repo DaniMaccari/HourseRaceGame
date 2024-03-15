@@ -33,7 +33,7 @@ var points4 = 20
 
 
 func _ready():
-	set_physics_process(true)
+	#set_physics_process(false)
 	
 	posEnd = posNodeEnd.position.y
 	posBad = posNodeBad.position.y
